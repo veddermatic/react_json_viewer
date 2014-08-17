@@ -140,8 +140,18 @@ var JSONArrayNode = React.createClass({displayName: 'JSONArrayNode',
         );
     }
 });
+
+/**
+ * Object node class. If you have an object, this is what you should use to 
+ * display it.
+ */
 var JSONObjectNode = React.createClass({displayName: 'JSONObjectNode',
     mixins: [ExpandedStateHandlerMixin],
+    /**
+     * Returns the child nodes for each element in the object. If we have
+     * generated them previously, we return from cache, otherwise we create 
+     * them.
+     */
     getChildNodes: function () {
         if (this.state.expanded && this.needsChildNodes) {
             var obj = this.props.data;
@@ -156,6 +166,10 @@ var JSONObjectNode = React.createClass({displayName: 'JSONObjectNode',
         }
         return this.renderedChildren;
     },
+    /**
+     * Returns the "n Items" string for this node, generating and
+     * caching it if it hasn't been created yet.
+     */
     getItemString: function () {
         if (!this.itemString) {
             var obj = this.props.data;
@@ -173,8 +187,17 @@ var JSONObjectNode = React.createClass({displayName: 'JSONObjectNode',
         }
         return this.itemString;
     },
+    /**
+     * cache store for the number of items string we display
+     */
     itemString: false,
+    /**
+     * flag to see if we still need to render our child nodes
+     */
     needsChildNodes: true,
+    /**
+     * cache store for our child nodes
+     */
     renderedChildren: [],
     render: function () {
         var childListStyle = {
@@ -193,6 +216,10 @@ var JSONObjectNode = React.createClass({displayName: 'JSONObjectNode',
         );
     }
 });
+
+/**
+ * String node component
+ */
 var JSONStringNode = React.createClass({displayName: 'JSONStringNode',
     mixins: [SquashClickEventMixin],
     render: function () {
@@ -204,6 +231,10 @@ var JSONStringNode = React.createClass({displayName: 'JSONStringNode',
         );
     }
 });
+
+/**
+ * Number node component
+ */
 var JSONNumberNode = React.createClass({displayName: 'JSONNumberNode',
     mixins: [SquashClickEventMixin],
     render: function () {
@@ -216,6 +247,10 @@ var JSONNumberNode = React.createClass({displayName: 'JSONNumberNode',
     }
 });
 
+
+/**
+ * Null node component
+ */
 var JSONNullNode = React.createClass({displayName: 'JSONNullNode',
     mixins: [SquashClickEventMixin],
     render: function () {
@@ -227,21 +262,40 @@ var JSONNullNode = React.createClass({displayName: 'JSONNullNode',
         );
     }
 });
+
+/**
+ * Boolean node component
+ */
 var JSONBooleanNode = React.createClass({displayName: 'JSONBooleanNode',
     mixins: [SquashClickEventMixin],
     render: function () {
+        var truthString = (this.props.value) ? 'true' : 'false';
         return (
-            React.DOM.li({className: "boolean itemNode", onClick: this.handleClick}, 
+            React.DOM.li({className: "boolean itemNode " + truthString, onClick: this.handleClick}, 
                 React.DOM.label(null, this.props.keyName, ":"), 
-                React.DOM.span(null, this.props.value ? 'true' : 'false')
+                React.DOM.span(null, truthString)
             )
         );
     }
 });
+
+/**
+ * JSONTree component. This is the 'viewer' base. Pass it a `data` prop and it 
+ * will render that data, or pass it a `source` URL prop and it will make 
+ * an XMLHttpRequest for said URL and render that when it loads the data.
+ * 
+ * You can load new data into it by either changing the `data` prop or calling
+ * `loadDataFromURL()` on an instance.
+ *
+ * The first node it draws will be expanded by default. 
+ */
 var JSONTree = React.createClass({displayName: 'JSONTree',
     getDefaultProps: function () {
         return {source: false};
     },
+    /**
+     * Will try and load data from the given URL and display it
+     */
     loadDataFromURL: function (url) {
         var self = this;
         request = new XMLHttpRequest();
@@ -273,6 +327,8 @@ var JSONTree = React.createClass({displayName: 'JSONTree',
             rootNode = JSONObjectNode({data: this.props.data, keyName: "(root)", initialExpanded: true})
         } else if (nodeType === 'Array') {
             rootNode = JSONArrayNode({data: this.props.data, initialExpanded: true, keyName: "(root)"})
+        } else {
+            console.error("How did you manage that?");
         }
         return (
             React.DOM.ul({className: "json_tree"}, 
