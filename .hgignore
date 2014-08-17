@@ -1,0 +1,12 @@
+syntax: glob
+git
+.git
+.gitignore
+*.swp
+.DS_Store
+.netrwhist
+.pyc
+.sass-cache
+node_modules
+gulpfile.js
+config.rb
