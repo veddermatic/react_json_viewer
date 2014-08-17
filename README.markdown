@@ -6,6 +6,10 @@ I wanted to mess with React some more. I needed to look at some JSON data. This 
 
 A simple viewer for JSON data written using the React library who's goal is to be relatively fast, and "not ugly". It attempts to be fast by not drawing any child nodes of an Array or Object until it's expanded. It attempts to be not ugly by being simple and drawing on what I can remember from my design background.  
 
+## Example
+
+There is an [example page](http://eskimospy.com/stuff/react/json/) up that is simply a copy of this repo. I will make another one with funnier data and more examples sometime soon. Hopefully.
+
 ## Installation
 
 Clone or download it.  The `jsonViewer.min.js` file in the `dist/js` directory is all you need to make your own "working" JSON viewer. The `screen.css` file in the `dist/css` directory will help make it not ugly.
