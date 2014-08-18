@@ -38,11 +38,14 @@ var myJSONViewer = React.renderComponent(
 
 var remoteDataButton = document.getElementById('loadRemoteData');
 var propsDataButton = document.getElementById('loadWithProps');
+var initialDataButton = document.getElementById('loadInitialData');
 
 remoteDataButton.addEventListener('click', function () {
-    //alert("buttes");
     myJSONViewer.loadDataFromURL("dist/data/moreFakeData.json");
 });
 propsDataButton.addEventListener('click', function () {
     myJSONViewer.setProps({ data: someFakeJson });
+});
+initialDataButton.addEventListener('click', function () {
+    myJSONViewer.loadDataFromURL("dist/data/fakeJSON.json");
 });
