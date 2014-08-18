@@ -8,7 +8,7 @@ A simple viewer for JSON data written using the React library who's goal is to b
 
 ## Example
 
-There is an [example page](http://eskimospy.com/stuff/react/json/) up that is simply a copy of this repo. I will make another one with funnier data and more examples sometime soon. Hopefully.
+There is an [example page](http://eskimospy.com/stuff/react/json/) up that is simply a copy of this repo. There you can see some fake data rendered, and load data both remotely and via a set props call.
 
 ## Installation
 
@@ -33,18 +33,20 @@ You can pass data to an instance of the `JSONTree` component directly as the `da
 The above creates a JSON viewer and will send an HTTP GET request to `http://someurl.com/theData.json` and renders it once it is loaded. Obviously any / all cross-domain caveats apply.
 
     var lol = {"one": "thing", "after": "another"};
-    React.renderComponent(
+    var aTree = React.renderComponent(
         <JSONTree data={lol} />, document.getElementById('content')
     );
+    // some time later...
+    aTree.loadDataFromURL('/data/directory/someFile.json');
 
 
-That would create a viewer and render the data contained in the `lol` variable. 
+That would create a viewer and render the data contained in the `lol` variable, and then later load new data in from `/data/directory/someFile.json'`
 
-Once your data is rendered, clicking on any array or object node will expand or contract it. Its fun!<sup>*</sup>
+Once your data is rendered, clicking on any array or object node will expand or contract it. Its fun!*
 
 If you use this somewhere and you want to be a swell person, provide a link back to the project.
 
-<sup>*</sup>_May not actually be fun._
+*_May not actually be fun._
 
 ## Next Steps
 
