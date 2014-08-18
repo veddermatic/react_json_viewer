@@ -1,5 +1,14 @@
 /** @jsx React.DOM */
 
+/*
+    =========================
+ * React JSONTree
+ * http://eskimospy.com/stuff/react/json/
+ * Copyright 2014, David Vedder
+ * MIT Licence
+    =========================
+ */
+
 /**
  * Creates a React JSON Viewer component for a key and it's associated data
  *

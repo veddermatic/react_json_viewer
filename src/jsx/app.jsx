@@ -32,7 +32,17 @@ var someFakeJson = {
 //
 //       data={someFakeJson} 
 //
-React.renderComponent(
-    <JSONTree source="dist/data/fakeJSON.json"  />,
-    document.getElementById('content')
+var myJSONViewer = React.renderComponent(
+    JSONTree({ source: 'dist/data/fakeJSON.json' }), document.getElementById('content')
 );
+
+var remoteDataButton = document.getElementById('loadRemoteData');
+var propsDataButton = document.getElementById('loadWithProps');
+
+remoteDataButton.addEventListener('click', function () {
+    //alert("buttes");
+    myJSONViewer.loadDataFromURL("dist/data/moreFakeData.json");
+});
+propsDataButton.addEventListener('click', function () {
+    myJSONViewer.setProps({ data: someFakeJson });
+});
